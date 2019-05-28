@@ -29,16 +29,21 @@ Take 1001 1001 again. The left-most 1 makes it negative. But, if we fit this in 
 But we can't do that conversion directly, Java translates numbers for us. So 1001 1001 turns into 1111 1111 1001 1001 with a direct conversion.
 
 We need to use the &-operator, to force Java to give us 0000 0000 1001 1001:
-    short s = (short) (byte_to_convert & 0x00FF)
+'''java
 
+    short s = (short) (byte_to_convert & 0x00FF)
+'''
 # "but this only works on single bytes at the end of a variable!"
 
 Yes.
 
 To get, say, the E in 0xF3E8 (that's hexadecimal), we can do this:
+'''java
+
     short s = (short) 0xF3E8;
     s = (short) (s & 0x00F0);
     s = (short) (s >>> 4);
+'''
 The second line picks out the E we're after; the third line moves it to the rightmost position, i.e. 4 steps to the right, which makes it a 14 (instead of a 224). In binary: 1110 0000 --> 0000 1110.
 
 Now we have our 14/E/0000 1110. 
